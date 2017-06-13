@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
+import VideoList from './components/video_list';
 
 //1) Create a new component. Component produces some html 
 //2) Make sure the component gets put onto the DOM. 
@@ -9,6 +10,7 @@ import SearchBar from './components/search_bar';
 
 const API_KEY = 'AIzaSyCddQehYW3nas2GWkKCjK7NwXzb1x1rBJU';
 
+//Pass data from Parent component App to child is passed thru props (properties) 
 class App extends Component {
     //when a user types in stuff from the other component, we need to search on youtube
     constructor(props){
@@ -26,6 +28,8 @@ class App extends Component {
         return (
             <div>
                 <SearchBar />
+                
+                <VideoList videos={this.state.videos} />
             </div>
         );
     }

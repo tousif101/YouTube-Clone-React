@@ -1,11 +1,28 @@
-//Does not need a state. Does not really hold any state. 
+import React from 'react';
 
-import React from 'react'; 
+const VideoListItem = (props) => {
+    const video = props.video;
+    const imageUrl = video.snippet.thumbnails.default.url;
+    const imageTitle = video.snippet.title;
 
-const VideoList = () => {
+
     return (
-        <ul>
+        <li className="list-group-item">
+            <div className = "video-list media"> 
+                <div className="media-left">
+                    <img className = "media-object" src={imageUrl} />
+                    
+                </div>
 
-        </ul>
+                <div className = "media-body">
+                    <div className = "media-heading">
+                        {imageTitle}
+                    </div>
+                 </div>
+
+            </div>
+        </li>
     );
-}
+};
+
+export default VideoListItem;
