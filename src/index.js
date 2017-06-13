@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
+import VideoDetail from './components/video_details';
 
 //1) Create a new component. Component produces some html 
 //2) Make sure the component gets put onto the DOM. 
 //One component per file 
+//Ask yourself, do you need to remember state. 
 
 const API_KEY = 'AIzaSyCddQehYW3nas2GWkKCjK7NwXzb1x1rBJU';
 
@@ -24,11 +26,12 @@ class App extends Component {
         });
 
     }
+    //Videos is null at first when it loads, then gets information. Cant fetch info fast enough for children to use.
     render(){
         return (
             <div>
                 <SearchBar />
-                
+                <VideoDetail video={this.state.videos[0]} />
                 <VideoList videos={this.state.videos} />
             </div>
         );
