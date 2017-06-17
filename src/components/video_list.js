@@ -8,7 +8,12 @@ const VideoList = (props) => {
     
     //When you use map, make sure you have an ID. Unique id. In these case we use etags 
     const videoItems = props.videos.map((video) => {
-        return <VideoListItem key={video.etag} video = {video} />
+        return (
+            <VideoListItem 
+                onVideoSelect = {props.onVideoSelect}
+                key={video.etag} 
+                video = {video} />
+        );
     });
 
     return (

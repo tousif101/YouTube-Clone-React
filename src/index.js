@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -19,36 +20,40 @@ class App extends Component {
         super(props);
 
         //We want an array of videos to get passed thru.
-        this.state = { videos : [] };   
+        this.state = { 
+            videos : [],
+            selectedVideo: null
+        };   
 
-        YTSearch({key: API_KEY, term:'surfboard'},(data) => {
-            this.setState({ videos:data });
-        });
-
+        this.videoSearch('cats');
+       
     }
+    videoSearch(term) { 
+         YTSearch({key: API_KEY, term:term},(data) => {
+            this.setState({ 
+                videos:data,
+                selectedVideo: data[0]
+            });
+        });
+    }
+
+
     //Videos is null at first when it loads, then gets information. Cant fetch info fast enough for children to use.
     render(){
         return (
             <div>
-                <SearchBar />
-                <VideoDetail video={this.state.videos[0]} />
-                <VideoList videos={this.state.videos} />
+                <SearchBar onSearchTermChange = {term => this.videoSearch(term)}/>
+                <VideoDetail video={this.state.selectedVideo} />
+                <VideoList 
+                    onVideoSelect = {selectedVideo => this.setState({selectedVideo}) }
+                    videos = {this.state.videos} 
+                    />
             </div>
         );
     }
 }
 
-
-
 ReactDOM.render(<App />,document.querySelector('.container'));
-
 //ReactDOM needs Element instance.
 //Want to fetch data here, because it is parent, and rest of the child need the data.
-// const App = () => { 
-//     return (
-//         <div>
-//             <SearchBar />
-//         </div>
-//     );
-// }
 //Cant use functional anymore because we need state, to keep track of the search results 
